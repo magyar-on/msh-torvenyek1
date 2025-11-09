@@ -5,14 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gyakorold a mássalhangzótörvényeket!</title>
   <style>
-    :root{
-      --dark-blue: #003366;      /* cím és gombok */
-      --card-bg: #e8f3ff;        /* halványkék háttér */
-      --card-border: #2a6fb3;    /* sötétebb keret és betűszín a kártyán */
-      --option-bg: #cfe6ff;      /* válasz-gombok alap */
-      --option-bg-hover: #b7d8ff;/* válasz-gombok hover */
+    :root {
+      --dark-blue: #003366;
+      --card-bg: #e8f3ff;
+      --card-border: #2a6fb3;
+      --option-bg: #cfe6ff;
+      --option-bg-hover: #b7d8ff;
     }
-
     * { box-sizing: border-box; }
     body {
       margin: 0;
@@ -38,7 +37,7 @@
       border: 2px solid var(--card-border);
       border-radius: 12px;
       padding: 1rem;
-      color: var(--card-border); /* betűszín azonos a kerettel */
+      color: var(--card-border);
       min-height: 180px;
     }
     .word {
@@ -67,7 +66,6 @@
       outline: 3px solid var(--dark-blue);
       background-color: #dbeaff;
     }
-
     .controls {
       display: flex;
       gap: 0.75rem;
@@ -88,13 +86,11 @@
       opacity: 0.5;
       cursor: not-allowed;
     }
-
     .progress {
       margin: 0.5rem 0 1rem 0;
       font-weight: 600;
       color: var(--dark-blue);
     }
-
     .results {
       margin-top: 1.5rem;
     }
@@ -108,7 +104,6 @@
     }
     .wrong { color: #c60000; font-weight: 700; }
     .right { color: #006400; font-weight: 700; }
-
     @media (min-width: 640px) {
       .options { grid-template-columns: 1fr 1fr; }
     }
@@ -120,46 +115,39 @@
 </head>
 <body>
   <header>Gyakorold a mássalhangzótörvényeket!</header>
-
   <div class="container">
     <div id="progress" class="progress"></div>
     <div id="quiz" class="card"></div>
-
     <div class="controls">
       <button id="nextBtn" class="btn" disabled>Tovább</button>
       <button id="submitBtn" class="btn" style="display:none;">Beküldés</button>
       <button id="restartBtn" class="btn" style="display:none;">Újrakezdés</button>
     </div>
-
     <div id="results" class="results"></div>
   </div>
-
   <script>
-    // Adatok a 3 képből – pontosan a megadott lista
     const data = [
-  ["mosdó","zöngésség szerinti részleges hasonulás"],
-  ["elhagyják","írásban jelöletlen teljes hasonulás"],
-  ["egészség","írásban jelöletlen teljes hasonulás"],
-  ["beljebb","írásban jelöletlen teljes hasonulás"],
-  ["patakzik","zöngésség szerinti részleges hasonulás"],
-  ["pongyola","képzés helye szerinti részleges hasonulás"],
-  ["orrszarvú","rövidülés"],
-  ["fáztam","zöngésség szerinti részleges hasonulás"],
-  ["itthon","rövidülés"],
-  ["szelídség","összeolvadás"],
-  ["mindnyájan","kiesés"],
-  ["kannyúl","képzés helye szerinti részleges hasonulás"],
-  ["gondterhelt","kiesés"],
-  ["siratja","összeolvadás"],
-  ["eddzél","írásban jelölt teljes hasonulás"],
-  ["küldték","kiesés"],
-  ["hagyjátok","írásban jelöletlen teljes hasonulás"],
-  ["vigyázzatok","írásban jelölt teljes hasonulás"],
-  ["játszik","összeolvadás"],
-  ["ecsettel","írásban jelölt teljes hasonulás"]
-];
-
-    // Válaszkategóriák (a válaszok 4-es készletéhez)
+      ["mosdó","zöngésség szerinti részleges hasonulás"],
+      ["elhagyják","írásban jelöletlen teljes hasonulás"],
+      ["egészség","írásban jelöletlen teljes hasonulás"],
+      ["beljebb","írásban jelöletlen teljes hasonulás"],
+      ["patakzik","zöngésség szerinti részleges hasonulás"],
+      ["pongyola","képzés helye szerinti részleges hasonulás"],
+      ["orrszarvú","rövidülés"],
+      ["fáztam","zöngésség szerinti részleges hasonulás"],
+      ["itthon","rövidülés"],
+      ["szelídség","összeolvadás"],
+      ["mindnyájan","kiesés"],
+      ["kannyúl","képzés helye szerinti részleges hasonulás"],
+      ["gondterhelt","kiesés"],
+      ["siratja","összeolvadás"],
+      ["eddzél","írásban jelölt teljes hasonulás"],
+      ["küldték","kiesés"],
+      ["hagyjátok","írásban jelöletlen teljes hasonulás"],
+      ["vigyázzatok","írásban jelölt teljes hasonulás"],
+      ["játszik","összeolvadás"],
+      ["ecsettel","írásban jelölt teljes hasonulás"]
+    ];
     const categories = [
       "zöngésség szerinti részleges hasonulás",
       "képzés helye szerinti részleges hasonulás",
@@ -170,13 +158,11 @@
       "kiesés"
     ];
 
-    // Állapot
     let quizData = [];
     let current = 0;
     let selectedOption = null;
     const answers = [];
 
-    // Véletlen sorrend
     function shuffle(array){
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -213,7 +199,7 @@
       `;
 
       document.getElementById('progress').textContent =
-        `Kérdés ${current + 1} / ${quizData.length}`;
+        \`Kérdés \${current + 1} / \${quizData.length}\`;
 
       quizEl.querySelectorAll('.option-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -240,10 +226,9 @@
           <div class="word">Vége a kérdéseknek.</div>
           <p>Nyomd meg a Beküldés gombot az eredményekhez.</p>
         `;
-        document.getElementById('progress').textContent = `Kész 🎉`;
+        document.getElementById('progress').textContent = \`Kész 🎉\`;
       }
     }
-
     function showResults(){
       let correctCount = 0;
       const listHtml = answers.map(a => {
@@ -271,7 +256,7 @@
     }
 
     function restart(){
-      quizData = shuffle([...data]);
+      quizData = shuffle([...data]).filter(item => Array.isArray(item) && item.length === 2);
       current = 0;
       selectedOption = null;
       answers.length = 0;
@@ -285,14 +270,12 @@
       renderQuestion();
     }
 
-    // Gombok bekötése
     document.getElementById('nextBtn').addEventListener('click', nextQuestion);
     document.getElementById('submitBtn').addEventListener('click', showResults);
     document.getElementById('restartBtn').addEventListener('click', restart);
 
-    // Indítás
     function init(){
-      quizData = shuffle([...data]);
+      quizData = shuffle([...data]).filter(item => Array.isArray(item) && item.length === 2);
       current = 0;
       answers.length = 0;
       document.getElementById('results').innerHTML = '';
